@@ -3,7 +3,6 @@ import 'package:unsplash_client/styles/app_colors.dart';
 import 'package:unsplash_client/styles/app_space.dart';
 import 'package:unsplash_client/styles/app_text_styles.dart';
 import 'package:unsplash_client/views/detailed_screen/screen_arguments.dart';
-import 'package:unsplash_client/views/feed/feed_view.dart';
 
 class DetailedView extends StatefulWidget {
   const DetailedView({super.key});
