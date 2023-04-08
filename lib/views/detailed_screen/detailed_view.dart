@@ -3,6 +3,7 @@ import 'package:unsplash_client/styles/app_colors.dart';
 import 'package:unsplash_client/styles/app_space.dart';
 import 'package:unsplash_client/styles/app_text_styles.dart';
 import 'package:unsplash_client/views/detailed_screen/screen_arguments.dart';
+import 'package:unsplash_client/views/feed/feed_view.dart';
 
 class DetailedView extends StatefulWidget {
   const DetailedView({super.key});
@@ -29,26 +30,29 @@ class _DetailedViewState extends State<DetailedView> {
             children: [
               AspectRatio(
                 aspectRatio: 1,
-                child: Image.network(
-                  args.photo.url.regular,
-                  loadingBuilder: (BuildContext context, Widget child,
-                      ImageChunkEvent? loadingProgress) {
-                    if (loadingProgress != null) {
-                      return Center(
-                        child: SizedBox(
-                          width: 40,
-                          height: 40,
-                          child: CircularProgressIndicator(
-                            strokeWidth: 1,
-                            value: loadingProgress.cumulativeBytesLoaded /
-                                loadingProgress.expectedTotalBytes!,
+                child: Hero(
+                  tag: args.photo.url.small,
+                  child: Image.network(
+                    args.photo.url.regular,
+                    loadingBuilder: (BuildContext context, Widget child,
+                        ImageChunkEvent? loadingProgress) {
+                      if (loadingProgress != null) {
+                        return Center(
+                          child: SizedBox(
+                            width: 40,
+                            height: 40,
+                            child: CircularProgressIndicator(
+                              strokeWidth: 1,
+                              value: loadingProgress.cumulativeBytesLoaded /
+                                  loadingProgress.expectedTotalBytes!,
+                            ),
                           ),
-                        ),
-                      );
-                    }
-                    return child;
-                  },
-                  fit: BoxFit.cover,
+                        );
+                      }
+                      return child;
+                    },
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
             ],

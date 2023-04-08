@@ -32,11 +32,14 @@ class PhotoItem extends StatelessWidget {
               child: Column(
                 children: [
                   Flexible(
-                    child: Image.network(
-                      photo.url.regular,
-                      width: double.infinity,
-                      height: double.infinity,
-                      fit: BoxFit.cover,
+                    child: Hero(
+                      tag: photo.url.small,
+                      child: Image.network(
+                        photo.url.regular,
+                        width: double.infinity,
+                        height: double.infinity,
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                   Container(
