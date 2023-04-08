@@ -25,12 +25,18 @@ class _FeedViewState extends State<FeedView> {
             (BuildContext context, AsyncSnapshot<List<PhotoModel>?> snapshot) {
           if (snapshot.hasData && snapshot.data != null) {
             List<PhotoModel> photoModels = snapshot.data!;
-            return ListView.builder(
-              physics: const BouncingScrollPhysics(),
-              itemCount: photoModels.length,
-              itemBuilder: (BuildContext context, int index) {
-                return PhotoItem(photo: photoModels[index]);
+            return RefreshIndicator(
+              onRefresh: () async {
+                await HttpService.instance.fetchPhotos();
+                setState(() {});
               },
+              child: ListView.builder(
+                physics: const BouncingScrollPhysics(),
+                itemCount: photoModels.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return PhotoItem(photo: photoModels[index]);
+                },
+              ),
             );
           } else {
             return HttpService.instance.error.isEmpty
