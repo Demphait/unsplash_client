@@ -12,6 +12,6 @@ class ErrorFeedState extends FeedState {
 }
 
 class DataFeedState extends FeedState {
-  final List<PhotoModel>? photos;
+  final List<PhotoModel> photos;
   DataFeedState(this.photos);
 }

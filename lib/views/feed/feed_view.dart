@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:unsplash_client/api/http_service.dart';
-import 'package:unsplash_client/models/photos_model.dart';
 import 'package:unsplash_client/views/feed/cubit/feed_cubit.dart';
 import 'package:unsplash_client/views/feed/widgets/photo_item.dart';
 import 'package:unsplash_client/widgets/app_loader.dart';
@@ -15,8 +13,7 @@ class FeedView extends StatefulWidget {
 
 class _FeedViewState extends State<FeedView> {
   final _listController = ScrollController();
-  final FeedCubit _cubit = FeedCubit(HttpService());
-  List<PhotoModel> photos = [];
+  final FeedCubit _cubit = FeedCubit();
 
   Future<void> _scrollListener() async {
     if (_cubit.isLoadingMore) return;
@@ -24,7 +21,7 @@ class _FeedViewState extends State<FeedView> {
         _listController.position.maxScrollExtent) {
       print('call');
       _cubit.isLoadingMore = true;
-      await _cubit.refreshPhotos();
+      await _cubit.loadPhotos();
       _cubit.isLoadingMore = false;
     }
   }
@@ -38,7 +35,7 @@ class _FeedViewState extends State<FeedView> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => _cubit..fetchPhotos(),
+      create: (context) => _cubit..loadPhotos(),
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Feed'),
@@ -49,18 +46,13 @@ class _FeedViewState extends State<FeedView> {
             if (state is LoadingFeedState) {
               return AppLoader();
             } else if (state is DataFeedState) {
-              // final photos = state.photos
-              photos += state.photos!;
               return RefreshIndicator(
-                onRefresh: () async {
-                  await _cubit.refreshPhotos();
-                  photos = state.photos!;
-                },
+                onRefresh: _cubit.refreshPhotos,
                 child: ListView.builder(
                   controller: _listController,
-                  itemCount: photos.length,
+                  itemCount: state.photos.length,
                   itemBuilder: (context, index) {
-                    return PhotoItem(photo: photos[index]);
+                    return PhotoItem(photo: state.photos[index]);
                   },
                 ),
               );
@@ -71,7 +63,7 @@ class _FeedViewState extends State<FeedView> {
                   Text(state.error),
                   ElevatedButton(
                     onPressed: () {
-                      _cubit.fetchPhotos();
+                      _cubit.loadPhotos();
                     },
                     child: const Text('Try again'),
                   ),
