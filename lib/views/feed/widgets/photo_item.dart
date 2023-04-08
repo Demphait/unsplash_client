@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:unsplash_client/styles/app_colors.dart';
 import 'package:unsplash_client/styles/app_text_styles.dart';
 import 'package:unsplash_client/views/detailed_screen/detailed_view.dart';
+import 'package:unsplash_client/views/detailed_screen/screen_arguments.dart';
 
 class PhotoItem extends StatelessWidget {
   final String photo;
@@ -58,6 +59,7 @@ class PhotoItem extends StatelessWidget {
                     Navigator.pushNamed(
                       context,
                       DetailedView.routeName,
+                      arguments: ScreenArguments(photo: photo),
                     );
                   },
                 ),
