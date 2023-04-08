@@ -30,7 +30,7 @@ class _DetailedViewState extends State<DetailedView> {
               AspectRatio(
                 aspectRatio: 1,
                 child: Image.network(
-                  args.photo,
+                  args.photo.url.regular,
                   loadingBuilder: (BuildContext context, Widget child,
                       ImageChunkEvent? loadingProgress) {
                     if (loadingProgress != null) {
@@ -61,22 +61,22 @@ class _DetailedViewState extends State<DetailedView> {
                 children: [
                   textBuild(
                     'Resolution',
-                    '1980X1080',
+                    '${args.photo.width}X${args.photo.height}',
                     Icons.wallpaper_rounded,
                   ),
                   textBuild(
                     'Likes',
-                    '10',
+                    args.photo.likes.toString(),
                     Icons.favorite_outline,
                   ),
                   textBuild(
                     'Downloads',
-                    '5',
+                    args.photo.downloads.toString(),
                     Icons.file_download_outlined,
                   ),
                   textBuild(
                     'Author',
-                    'Monica',
+                    args.photo.name,
                     Icons.person_outline,
                   ),
                 ],

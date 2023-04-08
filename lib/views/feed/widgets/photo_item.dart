@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:unsplash_client/models/photos_model.dart';
 import 'package:unsplash_client/styles/app_colors.dart';
 import 'package:unsplash_client/styles/app_text_styles.dart';
 import 'package:unsplash_client/views/detailed_screen/detailed_view.dart';
 import 'package:unsplash_client/views/detailed_screen/screen_arguments.dart';
 
 class PhotoItem extends StatelessWidget {
-  final String photo;
+  final PhotoModel photo;
 
   const PhotoItem({required this.photo, super.key});
 
@@ -32,7 +33,7 @@ class PhotoItem extends StatelessWidget {
                 children: [
                   Flexible(
                     child: Image.network(
-                      photo,
+                      photo.url.regular,
                       width: double.infinity,
                       height: double.infinity,
                       fit: BoxFit.cover,
@@ -44,7 +45,7 @@ class PhotoItem extends StatelessWidget {
                     color: AppColors.primary,
                     alignment: Alignment.center,
                     child: Text(
-                      'Example photo',
+                      'Author: ${photo.name}',
                       style: AppTextStyles.primaryTextStyle.white,
                     ),
                   ),
