@@ -20,7 +20,7 @@ class _DetailedViewState extends State<DetailedView> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Photo'),
+        title: Text('Photo: ${args.photo.id}'),
         centerTitle: true,
       ),
       body: Column(
