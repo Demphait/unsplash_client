@@ -1,16 +1,35 @@
 # unsplash_client
 
-A new Flutter project.
+A unsplash client created in flutter using Dio and Bloc. Unsplash client supports mobile, clone the appropriate branches mentioned below:
+
+* For Mobile: https://github.com/Demphait/unsplash_client/tree/main 
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+## How to Use 
 
-A few resources to get you started if this is your first Flutter project:
+**Step 1:**
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Download or clone this repo by using the link below:
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+```
+https://github.com/Demphait/unsplash_client.git
+```
+
+**Step 2:**
+
+Go to project root and execute the following command in console to get the required dependencies: 
+
+```
+flutter pub get 
+```
+
+## Unsplash client features:
+
+* Feed
+* Pagination
+* Pull-to-refresh
+* Search
+* Detailed Screen
+* Fullscreen image and add zoom in/out features.
+* Animated transition
