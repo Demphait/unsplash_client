@@ -23,41 +23,37 @@ class _DetailedViewState extends State<DetailedView> {
         title: Text('Photo: ${args.photo.id}'),
         centerTitle: true,
       ),
-      body: Column(
-        children: [
-          Stack(
-            children: [
-              AspectRatio(
-                aspectRatio: 1,
-                child: Hero(
-                  tag: args.photo.url.small,
-                  child: Image.network(
-                    args.photo.url.regular,
-                    loadingBuilder: (BuildContext context, Widget child,
-                        ImageChunkEvent? loadingProgress) {
-                      if (loadingProgress != null) {
-                        return Center(
-                          child: SizedBox(
-                            width: 40,
-                            height: 40,
-                            child: CircularProgressIndicator(
-                              strokeWidth: 1,
-                              value: loadingProgress.cumulativeBytesLoaded /
-                                  loadingProgress.expectedTotalBytes!,
-                            ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Hero(
+              tag: args.photo.url.small,
+              child: InteractiveViewer(
+                maxScale: 4.0,
+                child: Image.network(
+                  args.photo.url.regular,
+                  loadingBuilder: (BuildContext context, Widget child,
+                      ImageChunkEvent? loadingProgress) {
+                    if (loadingProgress != null) {
+                      return Center(
+                        child: SizedBox(
+                          width: 40,
+                          height: 40,
+                          child: CircularProgressIndicator(
+                            strokeWidth: 1,
+                            value: loadingProgress.cumulativeBytesLoaded /
+                                loadingProgress.expectedTotalBytes!,
                           ),
-                        );
-                      }
-                      return child;
-                    },
-                    fit: BoxFit.cover,
-                  ),
+                        ),
+                      );
+                    }
+                    return child;
+                  },
+                  fit: BoxFit.cover,
                 ),
               ),
-            ],
-          ),
-          Flexible(
-            child: Padding(
+            ),
+            Padding(
               padding: EdgeInsets.fromLTRB(
                   AppSpace.md, AppSpace.sm, AppSpace.md, AppSpace.md),
               child: Column(
@@ -85,8 +81,8 @@ class _DetailedViewState extends State<DetailedView> {
                 ],
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
