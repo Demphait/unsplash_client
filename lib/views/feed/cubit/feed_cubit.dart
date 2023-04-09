@@ -6,7 +6,6 @@ part 'feed_state.dart';
 
 class FeedCubit extends Cubit<FeedState> {
   HttpService httpService = HttpService.instance;
-  bool isLoadingMore = false;
   FeedCubit() : super(LoadingFeedState());
 
   Future<void> refreshPhotos() => _fetchPhotos(true);

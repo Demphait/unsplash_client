@@ -6,6 +6,7 @@ import 'package:unsplash_client/views/feed/widgets/photo_item.dart';
 import 'package:unsplash_client/views/search_screen/cubit/search_cubit.dart';
 import 'package:unsplash_client/views/search_screen/widgets/search_widget.dart';
 import 'package:unsplash_client/widgets/app_loader.dart';
+import 'package:unsplash_client/widgets/cubit_error_widget.dart';
 
 class SearchView extends StatefulWidget {
   const SearchView({super.key});
@@ -27,11 +28,12 @@ class _SearchViewState extends State<SearchView> {
     super.dispose();
   }
 
-  void _onSearchTextChanged(String query) {
+  void _onSearchTextChanged(String input) {
     debouncer?.cancel();
 
     debouncer = Timer(const Duration(milliseconds: 1000), () {
-      _cubit.searchPhotos(query);
+      _cubit.searchPhotos(input);
+      query = input;
     });
   }
 
@@ -42,7 +44,6 @@ class _SearchViewState extends State<SearchView> {
       child: Scaffold(
         appBar: AppBar(
           title: SearchWidget(
-            text: query,
             hintText: 'Name of photo',
             onChanged: _onSearchTextChanged,
           ),
@@ -60,17 +61,9 @@ class _SearchViewState extends State<SearchView> {
                 },
               );
             } else if (state is ErrorSearchState) {
-              return Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(state.error),
-                  ElevatedButton(
-                    onPressed: () {
-                      _cubit.searchPhotos(query);
-                    },
-                    child: const Text('Try again'),
-                  ),
-                ],
+              return CubitErrorWidget(
+                error: state.error,
+                tryAgainFunc: () => _cubit.searchPhotos(query),
               );
             } else if (state is EmptySearchState) {
               return const Center(

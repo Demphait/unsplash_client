@@ -2,13 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:unsplash_client/styles/app_text_styles.dart';
 
 class SearchWidget extends StatefulWidget {
-  final String text;
   final ValueChanged<String> onChanged;
   final String hintText;
 
   const SearchWidget({
     super.key,
-    required this.text,
     required this.onChanged,
     required this.hintText,
   });
