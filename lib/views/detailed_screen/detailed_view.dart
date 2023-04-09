@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:unsplash_client/styles/app_colors.dart';
 import 'package:unsplash_client/styles/app_space.dart';
 import 'package:unsplash_client/styles/app_text_styles.dart';
+import 'package:unsplash_client/views/detailed_screen/fullscreen_image_view.dart';
 import 'package:unsplash_client/views/detailed_screen/screen_arguments.dart';
 
 class DetailedView extends StatefulWidget {
@@ -23,14 +24,23 @@ class _DetailedViewState extends State<DetailedView> {
         title: Text('Photo: ${args.photo.id}'),
         centerTitle: true,
       ),
-      body: Column(
-        children: [
-          Stack(
-            children: [
-              AspectRatio(
-                aspectRatio: 1,
-                child: Hero(
-                  tag: args.photo.url.small,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Hero(
+              tag: args.photo.url.small,
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.of(context).push(
+                    PageRouteBuilder(
+                      opaque: false,
+                      pageBuilder: (_, __, ___) =>
+                          FullScreenImageView(photo: args.photo),
+                    ),
+                  );
+                },
+                child: InteractiveViewer(
+                  maxScale: 4.0,
                   child: Image.network(
                     args.photo.url.regular,
                     loadingBuilder: (BuildContext context, Widget child,
@@ -54,10 +64,8 @@ class _DetailedViewState extends State<DetailedView> {
                   ),
                 ),
               ),
-            ],
-          ),
-          Flexible(
-            child: Padding(
+            ),
+            Padding(
               padding: EdgeInsets.fromLTRB(
                   AppSpace.md, AppSpace.sm, AppSpace.md, AppSpace.md),
               child: Column(
@@ -85,8 +93,8 @@ class _DetailedViewState extends State<DetailedView> {
                 ],
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
