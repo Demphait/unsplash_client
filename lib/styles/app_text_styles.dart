@@ -40,6 +40,8 @@ extension AppTextStyles on TextStyle {
 
   TextStyle get black => copyWith(color: AppColors.black);
   TextStyle get white => copyWith(color: AppColors.white);
+  TextStyle get secondaryWhite =>
+      copyWith(color: AppColors.white.withOpacity(0.8));
   TextStyle get primary => copyWith(color: AppColors.primary);
   TextStyle get grey => copyWith(color: AppColors.grey);
   TextStyle get red => copyWith(color: AppColors.red);

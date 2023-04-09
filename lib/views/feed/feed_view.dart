@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:unsplash_client/views/feed/cubit/feed_cubit.dart';
 import 'package:unsplash_client/views/feed/widgets/photo_item.dart';
+import 'package:unsplash_client/views/search_screen/search_view.dart';
 import 'package:unsplash_client/widgets/app_loader.dart';
 
 class FeedView extends StatefulWidget {
@@ -40,6 +41,14 @@ class _FeedViewState extends State<FeedView> {
         appBar: AppBar(
           title: const Text('Feed'),
           centerTitle: true,
+          actions: [
+            IconButton(
+              onPressed: () {
+                Navigator.pushNamed(context, SearchView.routeName);
+              },
+              icon: const Icon(Icons.search),
+            ),
+          ],
         ),
         body: BlocBuilder<FeedCubit, FeedState>(
           builder: (context, state) {
