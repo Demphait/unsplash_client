@@ -2,7 +2,7 @@ part of 'feed_cubit.dart';
 
 abstract class FeedState {}
 
-class EmptyFeedState extends FeedState {} // server responses but empty response
+class EmptyFeedState extends FeedState {}
 
 class LoadingFeedState extends FeedState {}
 
