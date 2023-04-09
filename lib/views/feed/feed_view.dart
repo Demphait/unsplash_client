@@ -4,6 +4,7 @@ import 'package:unsplash_client/views/feed/cubit/feed_cubit.dart';
 import 'package:unsplash_client/views/feed/widgets/photo_item.dart';
 import 'package:unsplash_client/views/search_screen/search_view.dart';
 import 'package:unsplash_client/widgets/app_loader.dart';
+import 'package:unsplash_client/widgets/cubit_error_widget.dart';
 
 class FeedView extends StatefulWidget {
   const FeedView({super.key});
@@ -17,13 +18,9 @@ class _FeedViewState extends State<FeedView> {
   final FeedCubit _cubit = FeedCubit();
 
   Future<void> _scrollListener() async {
-    if (_cubit.isLoadingMore) return;
     if (_listController.position.pixels ==
         _listController.position.maxScrollExtent) {
-      print('call');
-      _cubit.isLoadingMore = true;
       await _cubit.loadPhotos();
-      _cubit.isLoadingMore = false;
     }
   }
 
@@ -66,17 +63,9 @@ class _FeedViewState extends State<FeedView> {
                 ),
               );
             } else if (state is ErrorFeedState) {
-              return Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(state.error),
-                  ElevatedButton(
-                    onPressed: () {
-                      _cubit.loadPhotos();
-                    },
-                    child: const Text('Try again'),
-                  ),
-                ],
+              return CubitErrorWidget(
+                error: state.error,
+                tryAgainFunc: _cubit.loadPhotos,
               );
             } else if (state is EmptyFeedState) {
               return const Center(
