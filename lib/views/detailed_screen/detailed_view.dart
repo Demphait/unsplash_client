@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:unsplash_client/styles/app_colors.dart';
 import 'package:unsplash_client/styles/app_space.dart';
 import 'package:unsplash_client/styles/app_text_styles.dart';
+import 'package:unsplash_client/views/detailed_screen/fullscreen_image_view.dart';
 import 'package:unsplash_client/views/detailed_screen/screen_arguments.dart';
 
 class DetailedView extends StatefulWidget {
@@ -28,28 +29,39 @@ class _DetailedViewState extends State<DetailedView> {
           children: [
             Hero(
               tag: args.photo.url.small,
-              child: InteractiveViewer(
-                maxScale: 4.0,
-                child: Image.network(
-                  args.photo.url.regular,
-                  loadingBuilder: (BuildContext context, Widget child,
-                      ImageChunkEvent? loadingProgress) {
-                    if (loadingProgress != null) {
-                      return Center(
-                        child: SizedBox(
-                          width: 40,
-                          height: 40,
-                          child: CircularProgressIndicator(
-                            strokeWidth: 1,
-                            value: loadingProgress.cumulativeBytesLoaded /
-                                loadingProgress.expectedTotalBytes!,
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.of(context).push(
+                    PageRouteBuilder(
+                      opaque: false,
+                      pageBuilder: (_, __, ___) =>
+                          FullScreenImageView(photo: args.photo),
+                    ),
+                  );
+                },
+                child: InteractiveViewer(
+                  maxScale: 4.0,
+                  child: Image.network(
+                    args.photo.url.regular,
+                    loadingBuilder: (BuildContext context, Widget child,
+                        ImageChunkEvent? loadingProgress) {
+                      if (loadingProgress != null) {
+                        return Center(
+                          child: SizedBox(
+                            width: 40,
+                            height: 40,
+                            child: CircularProgressIndicator(
+                              strokeWidth: 1,
+                              value: loadingProgress.cumulativeBytesLoaded /
+                                  loadingProgress.expectedTotalBytes!,
+                            ),
                           ),
-                        ),
-                      );
-                    }
-                    return child;
-                  },
-                  fit: BoxFit.cover,
+                        );
+                      }
+                      return child;
+                    },
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
             ),
