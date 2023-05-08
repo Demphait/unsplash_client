@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:domain/features/photos/models/responses/photo_model_response.dart';
 import 'package:domain/features/photos/models/responses/search_model_response.dart';
-import 'package:core/utils/strings_utils.dart';
 import 'package:injectable/injectable.dart';
 import 'package:retrofit/retrofit.dart';
 

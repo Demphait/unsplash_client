@@ -1,4 +1,3 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:domain/features/photos/models/responses/photo_model_response.dart';
 import 'package:flutter/material.dart';
 
