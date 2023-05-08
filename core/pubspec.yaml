@@ -1,0 +1,20 @@
+name: core
+
+environment:
+  sdk: ">=2.19.3 <3.0.0"
+
+dependencies:
+  # di
+  get_it: 7.2.0
+  injectable: 2.1.1
+
+  #network
+  dio: 5.1.1
+
+  # utils
+  equatable: 2.0.5
+
+
+dev_dependencies:
+  injectable_generator: 2.1.5
+  build_runner:

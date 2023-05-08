@@ -8,14 +8,31 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+
+  core:
+    path: core
+  data:
+    path: data
+  domain:
+    path: domain
+  presentation:
+    path: presentation
+
   cupertino_icons: ^1.0.2
   dio: ^5.1.1
   bloc: ^8.1.1
   flutter_bloc: ^8.1.2
 
+  get_it:
+  injectable:
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+  build_runner:
+  injectable_generator:
+
   flutter_lints: ^2.0.0
 flutter:
   uses-material-design: true

@@ -1,0 +1,26 @@
+name: domain
+
+environment:
+  sdk: ">=2.19.3 <3.0.0"
+
+dependencies:
+  core:
+    path: ../core
+  data:
+    path: ../data
+
+  # di
+  get_it:
+  injectable:
+
+  #json
+  json_annotation: 4.8.0
+
+  # utils
+  equatable:
+
+
+dev_dependencies:
+  build_runner:
+  injectable_generator:
+  json_serializable: 6.6.1
