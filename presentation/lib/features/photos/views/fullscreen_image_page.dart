@@ -5,15 +5,15 @@ import 'package:flutter/material.dart';
 import '../../../theme/app_colors.dart';
 
 @RoutePage()
-class FullScreenImageView extends StatelessWidget {
+class FullScreenImagePage extends StatelessWidget {
   final PhotoModelResponse photo;
 
-  const FullScreenImageView({super.key, required this.photo});
+  const FullScreenImagePage({super.key, required this.photo});
 
   @override
   Widget build(BuildContext context) {
     return Dismissible(
-      onDismissed: Navigator.of(context).pop,
+      onDismissed: context.router.pop,
       key: ValueKey(photo.id),
       direction: DismissDirection.vertical,
       child: Scaffold(

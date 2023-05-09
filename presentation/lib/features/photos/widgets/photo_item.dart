@@ -1,11 +1,11 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:domain/features/photos/models/responses/photo_model_response.dart';
 import 'package:flutter/material.dart';
 
+import '../../../routing/app_router.dart';
 import '../../../theme/app_colors.dart';
 import '../../../theme/app_space.dart';
 import '../../../theme/text_style_extension.dart';
-import '../views/detailed_view.dart';
-import '../views/screen_arguments.dart';
 
 class PhotoItem extends StatelessWidget {
   final PhotoModelResponse photo;
@@ -50,12 +50,7 @@ class PhotoItem extends StatelessWidget {
               color: AppColors.transparent,
               child: InkWell(
                 onTap: () {
-                  // context.router.push(DetailedView());
-                  Navigator.pushNamed(
-                    context,
-                    DetailedView.routeName,
-                    arguments: ScreenArguments(photo: photo),
-                  );
+                  context.router.push(DetailedRoute(photo: photo));
                 },
               ),
             ),

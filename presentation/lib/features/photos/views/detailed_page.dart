@@ -1,51 +1,54 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:domain/features/photos/models/responses/photo_model_response.dart';
 import 'package:flutter/material.dart';
-import 'package:presentation/features/photos/views/screen_arguments.dart';
 
+import '../../../routing/app_router.dart';
 import '../../../theme/app_colors.dart';
 import '../../../theme/app_space.dart';
 import '../../../theme/text_style_extension.dart';
-import 'fullscreen_image_view.dart';
 
 @RoutePage()
-class DetailedView extends StatefulWidget {
-  const DetailedView({super.key});
+class DetailedPage extends StatefulWidget {
+  const DetailedPage({super.key, required this.photo});
+
+  final PhotoModelResponse photo;
 
   static const routeName = '/detailed';
 
   @override
-  State<DetailedView> createState() => _DetailedViewState();
+  State<DetailedPage> createState() => _DetailedPageState();
 }
 
-class _DetailedViewState extends State<DetailedView> {
+class _DetailedPageState extends State<DetailedPage> {
   @override
   Widget build(BuildContext context) {
-    final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
+    final photo = widget.photo;
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Photo: ${args.photo.id}'),
+        title: Text('Photo: ${photo.id}'),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
         child: Column(
           children: [
             Hero(
-              tag: args.photo.urls.small,
+              tag: photo.urls.small,
               child: GestureDetector(
                 onTap: () {
-                  Navigator.of(context).push(
-                    PageRouteBuilder(
-                      opaque: false,
-                      pageBuilder: (_, __, ___) =>
-                          FullScreenImageView(photo: args.photo),
-                    ),
-                  );
+                  context.router.push(FullRouteImageRoute(photo: photo)); // TODO later
+                  // Navigator.of(context).push(
+                  //   PageRouteBuilder(
+                  //     opaque: false,
+                  //     pageBuilder: (_, __, ___) =>
+                  //         FullScreenImagePage(photo: photo),
+                  //   ),
+                  // );
                 },
                 child: InteractiveViewer(
                   maxScale: 4.0,
                   child: Image.network(
-                    args.photo.urls.regular,
+                    photo.urls.regular,
                     loadingBuilder: (BuildContext context, Widget child,
                         ImageChunkEvent? loadingProgress) {
                       if (loadingProgress != null) {
@@ -75,17 +78,17 @@ class _DetailedViewState extends State<DetailedView> {
                 children: [
                   textBuild(
                     'Resolution',
-                    '${args.photo.width}X${args.photo.height}',
+                    '${photo.width}X${photo.height}',
                     Icons.wallpaper_rounded,
                   ),
                   textBuild(
                     'Likes',
-                    args.photo.likes.toString(),
+                    photo.likes.toString(),
                     Icons.favorite_outline,
                   ),
                   textBuild(
                     'Author',
-                    args.photo.user.name,
+                    photo.user.name,
                     Icons.person_outline,
                   ),
                 ],

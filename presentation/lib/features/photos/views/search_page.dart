@@ -13,17 +13,17 @@ import '../widgets/photo_item.dart';
 import '../widgets/search_widget.dart';
 
 @RoutePage()
-class SearchView extends StatefulWidget {
-  const SearchView({super.key});
+class SearchPage extends StatefulWidget {
+  const SearchPage({super.key});
 
   static const routeName = '/search';
 
   @override
-  State<SearchView> createState() => _SearchViewState();
+  State<SearchPage> createState() => _SearchPageState();
 }
 
-class _SearchViewState extends State<SearchView> {
-  final SearchCubit _cubit = SearchCubit(locator<PhotosRepository>());
+class _SearchPageState extends State<SearchPage> {
+  final SearchCubit _cubit = SearchCubit(locator<PhotosRepository>()); //TODO
   String query = '';
   Timer? debouncer;
 

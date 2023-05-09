@@ -3,24 +3,24 @@ import 'package:core/di/locator.dart';
 import 'package:domain/features/photos/repositories/photos_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:presentation/features/photos/views/search_view.dart';
 
+import '../../../routing/app_router.dart';
 import '../../../widgets/app_loader.dart';
 import '../../../widgets/cubit_widget_error.dart';
 import '../bloc/feed_view/feed_cubit.dart';
 import '../widgets/photo_item.dart';
 
 @RoutePage()
-class FeedView extends StatefulWidget {
-  const FeedView({super.key});
+class FeedPage extends StatefulWidget {
+  const FeedPage({super.key});
 
   @override
-  State<FeedView> createState() => _FeedViewState();
+  State<FeedPage> createState() => _FeedPageState();
 }
 
-class _FeedViewState extends State<FeedView> {
+class _FeedPageState extends State<FeedPage> {
   final _listController = ScrollController();
-  final FeedCubit _cubit = FeedCubit(locator<PhotosRepository>());
+  final FeedCubit _cubit = FeedCubit(locator<PhotosRepository>()); //TODO
 
   Future<void> _scrollListener() async {
     if (_listController.position.pixels ==
@@ -46,7 +46,7 @@ class _FeedViewState extends State<FeedView> {
           actions: [
             IconButton(
               onPressed: () {
-                Navigator.pushNamed(context, SearchView.routeName);
+                context.router.push(SearchRoute());
               },
               icon: const Icon(Icons.search),
             ),
