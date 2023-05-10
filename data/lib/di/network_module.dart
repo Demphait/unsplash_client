@@ -1,4 +1,5 @@
 import 'package:core/utils/strings_utils.dart';
+import 'package:data/network/error_interceptor.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 
@@ -11,14 +12,15 @@ abstract class NetworkModule {
         contentType: 'application/json',
         headers: {'Authorization': "Client-ID ${StringsUtils.defaultApiKey}"});
     final dio = Dio(baseOptions);
-    dio.interceptors.add(
+    dio.interceptors.addAll([
       LogInterceptor(
         requestBody: true,
         requestHeader: true,
         responseBody: true,
         responseHeader: true,
       ),
-    );
+      ErrorInterceptor(),
+    ]);
     return dio;
   }
 }

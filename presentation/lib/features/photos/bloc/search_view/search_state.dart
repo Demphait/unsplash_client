@@ -12,6 +12,6 @@ class ErrorSearchState extends SearchState {
 }
 
 class DataSearchState extends SearchState {
-  final List<PhotoModelResponse> photos;
+  final List<Photo> photos;
   DataSearchState(this.photos);
 }

@@ -1,27 +1,34 @@
 import 'package:bloc/bloc.dart';
-import 'package:core/utils/data_state.dart';
-import 'package:domain/features/photos/models/responses/photo_model_response.dart';
+import 'package:domain/errors/failures.dart';
+import 'package:domain/features/photos/entities/photo.dart';
 import 'package:domain/features/photos/repositories/photos_repository.dart';
+import 'package:injectable/injectable.dart';
+import 'package:domain/features/photos/usecases/search_photos_usecase.dart';
 
 part 'search_state.dart';
 
+@injectable
 class SearchCubit extends Cubit<SearchState> {
-  SearchCubit(this._photosRepository) : super(EmptySearchState());
+  SearchCubit(this._searchPhotosUseCase) : super(EmptySearchState());
 
-  final PhotosRepository _photosRepository;
+  final SearchPhotosUseCase _searchPhotosUseCase;
 
   Future<void> searchPhotos(String query) async {
     emit(LoadingSearchState());
-    final response = await _photosRepository.searchPhoto(query, 5);
-    if (response is DataSuccess) {
-      final data = response.data!.results;
-      if (data.isNotEmpty) {
-        emit(DataSearchState(data));
-      } else if (data.isEmpty) {
+    final response = await _searchPhotosUseCase.searchPhotos(query, 5);
+    final result = response.fold(
+          (failure) => failure,
+          (photos) => photos.results,
+    );
+    if (result is List<Photo>) {
+      if (result.isEmpty) {
         emit(EmptySearchState());
+      } else if (result.isNotEmpty) {
+        emit(DataSearchState(result));
       }
-    } else if (response is DataFailed) {
-      emit(ErrorSearchState(response.error.toString()));
+    } else if (result is Failure &&
+        (result is NoInternetConnectionFailure || result is ServerFailure)) {
+      emit(ErrorSearchState(result.exception.toString()));
     }
   }
 }

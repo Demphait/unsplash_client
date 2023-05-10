@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:core/di/locator.dart';
 import 'package:domain/features/photos/repositories/photos_repository.dart';
+import 'package:domain/features/photos/usecases/get_photos_usecase.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -20,7 +21,7 @@ class FeedPage extends StatefulWidget {
 
 class _FeedPageState extends State<FeedPage> {
   final _listController = ScrollController();
-  final FeedCubit _cubit = FeedCubit(locator<PhotosRepository>()); //TODO
+  final FeedCubit _cubit = FeedCubit(locator<GetPhotosUseCase>());
 
   Future<void> _scrollListener() async {
     if (_listController.position.pixels ==
@@ -70,7 +71,7 @@ class _FeedPageState extends State<FeedPage> {
             } else if (state is ErrorFeedState) {
               return CubitErrorWidget(
                 error: state.error,
-                tryAgainFunc: _cubit.loadPhotos,
+                tryAgainFunc: _cubit.tryAgainFunc,
               );
             } else if (state is EmptyFeedState) {
               return const Center(

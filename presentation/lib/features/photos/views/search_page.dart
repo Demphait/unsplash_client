@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:core/di/locator.dart';
-import 'package:domain/features/photos/repositories/photos_repository.dart';
+import 'package:domain/features/photos/usecases/search_photos_usecase.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -23,7 +23,7 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
-  final SearchCubit _cubit = SearchCubit(locator<PhotosRepository>()); //TODO
+  final SearchCubit _cubit = SearchCubit(locator<SearchPhotosUseCase>());
   String query = '';
   Timer? debouncer;
 

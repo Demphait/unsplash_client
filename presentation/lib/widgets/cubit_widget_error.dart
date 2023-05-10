@@ -9,17 +9,19 @@ class CubitErrorWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text(error),
-        ElevatedButton(
-          onPressed: () {
-            tryAgainFunc();
-          },
-          child: const Text('Try again'),
-        ),
-      ],
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(error),
+          ElevatedButton(
+            onPressed: () {
+              tryAgainFunc();
+            },
+            child: const Text('Try again'),
+          ),
+        ],
+      ),
     );
   }
 }

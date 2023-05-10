@@ -1,5 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:domain/features/photos/models/responses/photo_model_response.dart';
+import 'package:domain/features/photos/entities/photo.dart';
 import 'package:presentation/features/photos/views/fullscreen_image_page.dart';
 
 import '../features/photos/views/detailed_page.dart';

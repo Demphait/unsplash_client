@@ -1,33 +1,45 @@
 import 'package:bloc/bloc.dart';
-import 'package:core/utils/data_state.dart';
-import 'package:domain/features/photos/models/responses/photo_model_response.dart';
+import 'package:domain/errors/failures.dart';
+import 'package:domain/features/photos/entities/photo.dart';
 import 'package:domain/features/photos/repositories/photos_repository.dart';
+import 'package:domain/features/photos/usecases/get_photos_usecase.dart';
+import 'package:injectable/injectable.dart';
 
 part 'feed_state.dart';
 
+@injectable
 class FeedCubit extends Cubit<FeedState> {
-  FeedCubit(this._photosRepository) : super(LoadingFeedState());
+  FeedCubit(this._getPhotosUseCase) : super(LoadingFeedState());
 
-  final PhotosRepository _photosRepository;
+  final GetPhotosUseCase _getPhotosUseCase;
+
+  Future<void> tryAgainFunc() {
+    emit(LoadingFeedState());
+    return _fetchPhotos(true);
+  }
 
   Future<void> refreshPhotos() => _fetchPhotos(true);
 
   Future<void> loadPhotos() => _fetchPhotos(false);
 
   Future<void> _fetchPhotos(bool isForceNew) async {
-    final response = await _photosRepository.getPhotos(30);
-    if (response is DataSuccess) {
-      final data = response.data;
-      if (data!.isEmpty) {
+    final response = await _getPhotosUseCase.getPhotos(30);
+    final result = response.fold(
+      (failure) => failure,
+      (photos) => photos,
+    );
+    if (result is List<Photo>) {
+      if (result.isEmpty) {
         emit(EmptyFeedState());
       } else if (state is DataFeedState && !isForceNew) {
         var dataState = state as DataFeedState;
-        emit(DataFeedState(dataState.photos..addAll(data)));
+        emit(DataFeedState(dataState.photos..addAll(result)));
       } else {
-        emit(DataFeedState(data));
+        emit(DataFeedState(result));
       }
-    } else if (response is DataFailed) {
-      emit(ErrorFeedState(response.error.toString()));
+    } else if (result is Failure &&
+        (result is NoInternetConnectionFailure || result is ServerFailure)) {
+      emit(ErrorFeedState(result.exception.toString()));
     }
   }
 }

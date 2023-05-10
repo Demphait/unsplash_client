@@ -24,6 +24,7 @@ dependencies:
 
   # utils
   equatable:
+  dartz: ^0.10.1
 
 
 dev_dependencies:

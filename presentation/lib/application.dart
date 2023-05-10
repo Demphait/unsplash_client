@@ -20,10 +20,10 @@ class _ApplicationState extends State<Application> {
     return MaterialApp.router(
       routerConfig: _appRouter.config(),
       title: 'Unsplash client',
-      theme:
-          ThemeData(useMaterial3: true, colorScheme: AppTheme.lightColorScheme),
-      darkTheme:
-          ThemeData(useMaterial3: true, colorScheme: AppTheme.darkColorScheme),
+      // theme:
+      //     ThemeData(useMaterial3: true, colorScheme: AppTheme.lightColorScheme),
+      // darkTheme:
+      //     ThemeData(useMaterial3: true, colorScheme: AppTheme.darkColorScheme),
     );
   }
 }

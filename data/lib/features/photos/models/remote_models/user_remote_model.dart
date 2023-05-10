@@ -1,20 +1,20 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'user_model_response.g.dart';
+part 'user_remote_model.g.dart';
 
 @JsonSerializable(createToJson: false)
-class UserModelResponse {
+class UserRemoteModel {
   final String id;
   final String username;
   final String name;
 
-  UserModelResponse({
+  UserRemoteModel({
     required this.id,
     required this.username,
     required this.name,
   });
 
-  factory UserModelResponse.fromJson(Map<String, dynamic> json) {
-    return _$UserModelResponseFromJson(json);
+  factory UserRemoteModel.fromJson(Map<String, dynamic> json) {
+    return _$UserRemoteModelFromJson(json);
   }
 }

@@ -1,5 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:domain/features/photos/models/responses/photo_model_response.dart';
+import 'package:domain/features/photos/entities/photo.dart';
 import 'package:flutter/material.dart';
 
 import '../../../routing/app_router.dart';
@@ -11,7 +11,7 @@ import '../../../theme/text_style_extension.dart';
 class DetailedPage extends StatefulWidget {
   const DetailedPage({super.key, required this.photo});
 
-  final PhotoModelResponse photo;
+  final Photo photo;
 
   static const routeName = '/detailed';
 
@@ -26,7 +26,10 @@ class _DetailedPageState extends State<DetailedPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Photo: ${photo.id}'),
+        title: Text(
+          'Photo: ${photo.id}',
+          style: Theme.of(context).appBarTheme.titleTextStyle,
+        ),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -36,7 +39,8 @@ class _DetailedPageState extends State<DetailedPage> {
               tag: photo.urls.small,
               child: GestureDetector(
                 onTap: () {
-                  context.router.push(FullRouteImageRoute(photo: photo)); // TODO later
+                  context.router
+                      .push(FullRouteImageRoute(photo: photo)); // TODO later
                   // Navigator.of(context).push(
                   //   PageRouteBuilder(
                   //     opaque: false,

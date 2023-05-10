@@ -1,16 +1,16 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'image_model_response.g.dart';
+part 'image_remote_model.g.dart';
 
 @JsonSerializable(createToJson: false)
-class ImageModelResponse {
+class ImageRemoteModel {
   final String raw;
   final String full;
   final String regular;
   final String small;
   final String thumb;
 
-  ImageModelResponse({
+  ImageRemoteModel({
     required this.raw,
     required this.full,
     required this.regular,
@@ -18,7 +18,7 @@ class ImageModelResponse {
     required this.thumb,
   });
 
-  factory ImageModelResponse.fromJson(Map<String, dynamic> json) {
-    return _$ImageModelResponseFromJson(json);
+  factory ImageRemoteModel.fromJson(Map<String, dynamic> json) {
+    return _$ImageRemoteModelFromJson(json);
   }
 }

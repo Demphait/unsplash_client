@@ -49,16 +49,24 @@ data/lib/features/photos/api/photos_service.g.dart
 
 domain/lib/di/injector.module.dart
 
-domain/lib/features/photos/models/responses/image_model_response.g.dart
+domain/lib/features/photos/entities/responses/image_model_response.g.dart
 
-domain/lib/features/photos/models/responses/photo_model_response.g.dart
+domain/lib/features/photos/entities/responses/photo_model_response.g.dart
 
-domain/lib/features/photos/models/responses/search_model_response.g.dart
+domain/lib/features/photos/entities/responses/search_model_response.g.dart
 
-domain/lib/features/photos/models/responses/user_model_response.g.dart
+domain/lib/features/photos/entities/responses/user_model_response.g.dart
 
 lib/di/injector.config.dart
 
 presentation/lib/di/injector.module.dart
 
 presentation/lib/routing/app_router.gr.dart
+
+data/lib/features/photos/models/remote_models/image_remote_model.g.dart
+
+data/lib/features/photos/models/remote_models/photo_remote_model.g.dart
+
+data/lib/features/photos/models/remote_models/search_remote_model.g.dart
+
+data/lib/features/photos/models/remote_models/user_remote_model.g.dart

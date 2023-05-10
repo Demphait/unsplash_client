@@ -1,6 +1,6 @@
+import 'package:data/features/photos/models/remote_models/photo_remote_model.dart';
+import 'package:data/features/photos/models/remote_models/search_remote_model.dart';
 import 'package:dio/dio.dart';
-import 'package:domain/features/photos/models/responses/photo_model_response.dart';
-import 'package:domain/features/photos/models/responses/search_model_response.dart';
 import 'package:injectable/injectable.dart';
 import 'package:retrofit/retrofit.dart';
 
@@ -13,18 +13,18 @@ abstract class PhotosService {
   factory PhotosService(Dio dio) = _PhotosService;
 
   @GET('/photos/random')
-  Future<HttpResponse<List<PhotoModelResponse>>> getPhotos(
+  Future<List<PhotoRemoteModel>> getPhotos(
     @Query('count') int count,
   );
 
   @GET('/search/photos/')
-  Future<HttpResponse<SearchModelResponse>> searchPhoto(
+  Future<SearchRemoteModel> searchPhoto(
     @Query('query') String query,
     @Query('per_page') int perPage,
   );
 
   @GET('/photos/')
-  Future<HttpResponse<PhotoModelResponse>> getPhoto(
+  Future<PhotoRemoteModel> getPhoto(
     @Query('id') String id,
   );
 }
