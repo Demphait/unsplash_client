@@ -16,6 +16,11 @@ class AppRouter extends _$AppRouter {
         AutoRoute(page: DetailedRoute.page),
         AutoRoute(page: FeedRoute.page, initial: true),
         AutoRoute(page: SearchRoute.page),
-        AutoRoute(page: FullRouteImageRoute.page),
+        CustomRoute(
+          page: FullRouteImageRoute.page,
+          opaque: false,
+          fullscreenDialog: true,
+          transitionsBuilder: TransitionsBuilders.noTransition,
+        ),
       ];
 }

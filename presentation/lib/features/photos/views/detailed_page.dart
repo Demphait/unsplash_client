@@ -39,39 +39,30 @@ class _DetailedPageState extends State<DetailedPage> {
               tag: photo.urls.small,
               child: GestureDetector(
                 onTap: () {
-                  context.router
-                      .push(FullRouteImageRoute(photo: photo)); // TODO later
-                  // Navigator.of(context).push(
-                  //   PageRouteBuilder(
-                  //     opaque: false,
-                  //     pageBuilder: (_, __, ___) =>
-                  //         FullScreenImagePage(photo: photo),
-                  //   ),
-                  // );
+                  context.router.push(
+                    FullRouteImageRoute(photo: photo),
+                  );
                 },
-                child: InteractiveViewer(
-                  maxScale: 4.0,
-                  child: Image.network(
-                    photo.urls.regular,
-                    loadingBuilder: (BuildContext context, Widget child,
-                        ImageChunkEvent? loadingProgress) {
-                      if (loadingProgress != null) {
-                        return Center(
-                          child: SizedBox(
-                            width: 40,
-                            height: 40,
-                            child: CircularProgressIndicator(
-                              strokeWidth: 1,
-                              value: loadingProgress.cumulativeBytesLoaded /
-                                  loadingProgress.expectedTotalBytes!,
-                            ),
+                child: Image.network(
+                  photo.urls.regular,
+                  loadingBuilder: (BuildContext context, Widget child,
+                      ImageChunkEvent? loadingProgress) {
+                    if (loadingProgress != null) {
+                      return Center(
+                        child: SizedBox(
+                          width: 40,
+                          height: 40,
+                          child: CircularProgressIndicator(
+                            strokeWidth: 1,
+                            value: loadingProgress.cumulativeBytesLoaded /
+                                loadingProgress.expectedTotalBytes!,
                           ),
-                        );
-                      }
-                      return child;
-                    },
-                    fit: BoxFit.cover,
-                  ),
+                        ),
+                      );
+                    }
+                    return child;
+                  },
+                  fit: BoxFit.cover,
                 ),
               ),
             ),
