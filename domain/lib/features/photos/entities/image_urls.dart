@@ -1,15 +1,14 @@
-class ImageUrls {
-  final String raw;
-  final String full;
-  final String regular;
-  final String small;
-  final String thumb;
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  ImageUrls({
-    required this.raw,
-    required this.full,
-    required this.regular,
-    required this.small,
-    required this.thumb,
-  });
+part 'image_urls.freezed.dart';
+
+@freezed
+class ImageUrls with _$ImageUrls {
+  const factory ImageUrls({
+    required String raw,
+    required String full,
+    required String regular,
+    required String small,
+    required String thumb,
+  }) = _ImageUrls;
 }

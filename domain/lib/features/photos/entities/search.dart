@@ -1,13 +1,13 @@
 import 'package:domain/features/photos/entities/photo.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-class Search {
-  final int total;
-  final int totalPages;
-  final List<Photo> results;
+part 'search.freezed.dart';
 
-  Search({
-    required this.total,
-    required this.totalPages,
-    required this.results,
-  });
+@freezed
+class Search with _$Search {
+  const factory Search({
+    required int total,
+    required int totalPages,
+    required List<Photo> results,
+  }) = _Search;
 }

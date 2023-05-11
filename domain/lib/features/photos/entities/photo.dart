@@ -1,20 +1,17 @@
 import 'package:domain/features/photos/entities/image_urls.dart';
 import 'package:domain/features/photos/entities/user.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-class Photo {
-  final ImageUrls urls;
-  final String id;
-  final int width;
-  final int height;
-  final int likes;
-  final User user;
+part 'photo.freezed.dart';
 
-  Photo({
-    required this.urls,
-    required this.id,
-    required this.width,
-    required this.height,
-    required this.likes,
-    required this.user,
-  });
+@freezed
+class Photo with _$Photo {
+  const factory Photo({
+    required ImageUrls urls,
+    required String id,
+    required int width,
+    required int height,
+    required int likes,
+    required User user,
+  }) = _Photo;
 }
