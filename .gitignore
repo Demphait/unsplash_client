@@ -82,3 +82,11 @@ domain/lib/features/photos/entities/search.freezed.dart
 domain/lib/features/photos/entities/user.freezed.dart
 
 *.lock
+
+data/lib/features/photos/models/remote_models/image_remote_model.freezed.dart
+
+data/lib/features/photos/models/remote_models/photo_remote_model.freezed.dart
+
+data/lib/features/photos/models/remote_models/search_remote_model.freezed.dart
+
+data/lib/features/photos/models/remote_models/user_remote_model.freezed.dart

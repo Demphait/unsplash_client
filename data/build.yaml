@@ -1,0 +1,8 @@
+targets:
+  $default:
+    builders:
+      freezed:
+        options:
+          # Disable the generation of copyWith/== for the data module
+          copy_with: false
+          equal: false

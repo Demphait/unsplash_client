@@ -1,20 +1,17 @@
-import 'package:json_annotation/json_annotation.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+part 'user_remote_model.freezed.dart';
 
 part 'user_remote_model.g.dart';
 
-@JsonSerializable(createToJson: false)
-class UserRemoteModel {
-  final String id;
-  final String username;
-  final String name;
+@freezed
+class UserRemoteModel with _$UserRemoteModel {
+  const factory UserRemoteModel({
+    required String id,
+    required String username,
+    required String name,
+  }) = _UserRemoteModel;
 
-  UserRemoteModel({
-    required this.id,
-    required this.username,
-    required this.name,
-  });
-
-  factory UserRemoteModel.fromJson(Map<String, dynamic> json) {
-    return _$UserRemoteModelFromJson(json);
-  }
+  factory UserRemoteModel.fromJson(Map<String, dynamic> json) =>
+      _$UserRemoteModelFromJson(json);
 }

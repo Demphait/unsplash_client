@@ -1,21 +1,18 @@
 import 'package:data/features/photos/models/remote_models/photo_remote_model.dart';
-import 'package:json_annotation/json_annotation.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+part 'search_remote_model.freezed.dart';
 
 part 'search_remote_model.g.dart';
 
-@JsonSerializable(createToJson: false, fieldRename: FieldRename.snake)
-class SearchRemoteModel {
-  final int total;
-  final int totalPages;
-  final List<PhotoRemoteModel> results;
+@Freezed(toJson: false)
+class SearchRemoteModel with _$SearchRemoteModel {
+  const factory SearchRemoteModel({
+    required int total,
+    @JsonKey(name: 'total_pages') required int totalPages,
+    required List<PhotoRemoteModel> results,
+  }) = _SearchRemoteModel;
 
-  SearchRemoteModel({
-    required this.total,
-    required this.totalPages,
-    required this.results,
-  });
-
-  factory SearchRemoteModel.fromJson(Map<String, dynamic> json) {
-    return _$SearchRemoteModelFromJson(json);
-  }
+  factory SearchRemoteModel.fromJson(Map<String, dynamic> json) =>
+      _$SearchRemoteModelFromJson(json);
 }
