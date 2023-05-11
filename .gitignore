@@ -80,3 +80,5 @@ domain/lib/features/photos/entities/photo.freezed.dart
 domain/lib/features/photos/entities/search.freezed.dart
 
 domain/lib/features/photos/entities/user.freezed.dart
+
+*.lock
