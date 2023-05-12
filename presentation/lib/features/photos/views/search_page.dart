@@ -5,12 +5,14 @@ import 'package:core/di/locator.dart';
 import 'package:domain/features/photos/usecases/search_photos_usecase.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:presentation/features/photos/bloc/search_view/search_cubit.dart';
+import 'package:presentation/features/photos/widgets/photo_item.dart';
+import 'package:presentation/features/photos/widgets/search_widget.dart';
+import 'package:presentation/routing/app_router.dart';
+import 'package:presentation/widgets/app_loader.dart';
+import 'package:presentation/widgets/cubit_widget_error.dart';
 
-import '../../../widgets/app_loader.dart';
-import '../../../widgets/cubit_widget_error.dart';
-import '../bloc/search_view/search_cubit.dart';
-import '../widgets/photo_item.dart';
-import '../widgets/search_widget.dart';
+
 
 @RoutePage()
 class SearchPage extends StatefulWidget {
@@ -55,28 +57,24 @@ class _SearchPageState extends State<SearchPage> {
         ),
         body: BlocBuilder<SearchCubit, SearchState>(
           builder: (context, state) {
-            if (state is LoadingSearchState) {
-              return AppLoader();
-            } else if (state is DataSearchState) {
-              return ListView.builder(
+            return state.map(
+              empty: (state) => Center(
+                child: Text('The input field is empty or no result was found'),
+              ),
+              loading: (state) => AppLoader(),
+              error: (state) => CubitErrorWidget(
+                  error: state.error,
+                  tryAgainFunc: () => _cubit.searchPhotos(query)),
+              data: (state) => ListView.builder(
                 itemCount: state.photos.length,
                 itemBuilder: (context, index) {
                   final photo = state.photos[index];
-                  return PhotoItem(photo: photo);
+                  return PhotoItem(
+                      photo: photo,
+                      onTap: () => context.router
+                          .push(DetailedRoute(photo: state.photos[index]))); //TODO LATER
                 },
-              );
-            } else if (state is ErrorSearchState) {
-              return CubitErrorWidget(
-                error: state.error,
-                tryAgainFunc: () => _cubit.searchPhotos(query),
-              );
-            } else if (state is EmptySearchState) {
-              return const Center(
-                child: Text('The input field is empty or no result was found'),
-              );
-            }
-            return Center(
-              child: Text(state.toString()),
+              ),
             );
           },
         ),

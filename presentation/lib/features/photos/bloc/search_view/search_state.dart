@@ -1,17 +1,12 @@
 part of 'search_cubit.dart';
 
-abstract class SearchState {}
+@freezed
+class SearchState with _$SearchState {
+  const factory SearchState.empty() = _Initial;
 
-class EmptySearchState extends SearchState {}
+  const factory SearchState.loading() = _Loading;
 
-class LoadingSearchState extends SearchState {}
+  const factory SearchState.error(String error) = _Error;
 
-class ErrorSearchState extends SearchState {
-  final String error;
-  ErrorSearchState(this.error);
-}
-
-class DataSearchState extends SearchState {
-  final List<Photo> photos;
-  DataSearchState(this.photos);
+  const factory SearchState.data(List<Photo> photos) = _Data;
 }

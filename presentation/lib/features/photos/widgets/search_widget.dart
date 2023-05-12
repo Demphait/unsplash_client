@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:presentation/theme/text_style_extension.dart';
 
-import '../../../theme/text_style_extension.dart';
+
 
 class SearchWidget extends StatefulWidget {
   final ValueChanged<String> onChanged;
