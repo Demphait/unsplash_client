@@ -1,11 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:domain/features/photos/entities/photo.dart';
 import 'package:flutter/material.dart';
-
-import '../../../routing/app_router.dart';
-import '../../../theme/app_colors.dart';
-import '../../../theme/app_space.dart';
-import '../../../theme/text_style_extension.dart';
+import 'package:presentation/routing/app_router.dart';
+import 'package:presentation/theme/app_colors.dart';
+import 'package:presentation/theme/app_space.dart';
+import 'package:presentation/theme/text_style_extension.dart';
 
 @RoutePage()
 class DetailedPage extends StatefulWidget {

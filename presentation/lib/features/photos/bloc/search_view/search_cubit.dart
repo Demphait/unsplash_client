@@ -19,13 +19,13 @@ class SearchCubit extends Cubit<SearchState> with CubitMixin {
     emit(SearchState.loading());
     final result = await invoke(_searchPhotosUseCase.searchPhotos(query, 5));
     result.fold(
-            (failure) => emit(SearchState.error(failure.exception.toString())),
-            (photos) {
-          if (photos.results.isEmpty) {
-            emit(const SearchState.empty());
-            return;
-          }
-          emit(SearchState.data(photos.results));
-        });
+        (failure) => emit(SearchState.error(failure.exception.toString())),
+        (photos) {
+      if (photos.results.isEmpty) {
+        emit(const SearchState.empty());
+        return;
+      }
+      emit(SearchState.data(photos.results));
+    });
   }
 }

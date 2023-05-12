@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:presentation/theme/text_style_extension.dart';
 
-
-
 class SearchWidget extends StatefulWidget {
   final ValueChanged<String> onChanged;
   final String hintText;

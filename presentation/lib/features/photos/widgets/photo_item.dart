@@ -4,8 +4,6 @@ import 'package:presentation/theme/app_colors.dart';
 import 'package:presentation/theme/app_space.dart';
 import 'package:presentation/theme/text_style_extension.dart';
 
-
-
 class PhotoItem extends StatelessWidget {
   final Photo photo;
   final VoidCallback onTap;

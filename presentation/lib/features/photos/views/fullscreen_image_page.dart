@@ -2,8 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:domain/features/photos/entities/photo.dart';
 import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
-
-import '../../../theme/app_colors.dart';
+import 'package:presentation/theme/app_colors.dart';
 
 @RoutePage()
 class FullScreenImagePage extends StatelessWidget {
@@ -17,25 +16,13 @@ class FullScreenImagePage extends StatelessWidget {
       backgroundColor: AppColors.transparent.withOpacity(0.8),
       body: Center(
         child: GestureDetector(
-         onVerticalDragDown: context.router.pop,
+          onVerticalDragDown: context.router.pop,
           child: PhotoView(
             backgroundDecoration: BoxDecoration(color: AppColors.transparent),
             maxScale: 4.0,
             imageProvider: NetworkImage(photo.urls.regular),
             heroAttributes: PhotoViewHeroAttributes(tag: photo.urls.small),
           ),
-
-          // child: InteractiveViewer(
-          //   clipBehavior: Clip.none,
-          //   maxScale: 4.0,
-          //   child: Hero(
-          //     tag: photo.urls.small,
-          //     child: Image.network(
-          //       photo.urls.regular,
-          //       fit: BoxFit.contain,
-          //     ),
-          //   ),
-          // ),
         ),
       ),
     );

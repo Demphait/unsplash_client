@@ -12,8 +12,6 @@ import 'package:presentation/routing/app_router.dart';
 import 'package:presentation/widgets/app_loader.dart';
 import 'package:presentation/widgets/cubit_widget_error.dart';
 
-
-
 @RoutePage()
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
@@ -71,8 +69,8 @@ class _SearchPageState extends State<SearchPage> {
                   final photo = state.photos[index];
                   return PhotoItem(
                       photo: photo,
-                      onTap: () => context.router
-                          .push(DetailedRoute(photo: state.photos[index]))); //TODO LATER
+                      onTap: () => context.router.push(DetailedRoute(
+                          photo: state.photos[index]))); //TODO LATER
                 },
               ),
             );

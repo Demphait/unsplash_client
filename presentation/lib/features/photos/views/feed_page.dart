@@ -9,8 +9,6 @@ import 'package:presentation/routing/app_router.dart';
 import 'package:presentation/widgets/app_loader.dart';
 import 'package:presentation/widgets/cubit_widget_error.dart';
 
-
-
 @RoutePage()
 class FeedPage extends StatefulWidget {
   const FeedPage({super.key});
@@ -72,8 +70,8 @@ class _FeedPageState extends State<FeedPage> {
                   itemBuilder: (context, index) {
                     return PhotoItem(
                       photo: state.photos[index],
-                      onTap: () => context.router
-                          .push(DetailedRoute(photo: state.photos[index])), //TODO LATER
+                      onTap: () => context.router.push(DetailedRoute(
+                          photo: state.photos[index])), //TODO LATER
                     );
                   },
                 ),

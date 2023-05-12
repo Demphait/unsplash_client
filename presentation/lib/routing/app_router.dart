@@ -2,9 +2,9 @@ import 'package:auto_route/auto_route.dart';
 import 'package:domain/features/photos/entities/photo.dart';
 import 'package:presentation/features/photos/views/fullscreen_image_page.dart';
 
-import '../features/photos/views/detailed_page.dart';
-import '../features/photos/views/feed_page.dart';
-import '../features/photos/views/search_page.dart';
+import 'package:presentation/features/photos/views/detailed_page.dart';
+import 'package:presentation/features/photos/views/feed_page.dart';
+import 'package:presentation/features/photos/views/search_page.dart';
 import 'package:flutter/material.dart';
 
 part 'app_router.gr.dart';
