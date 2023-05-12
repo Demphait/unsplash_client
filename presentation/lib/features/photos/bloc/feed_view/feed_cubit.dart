@@ -1,45 +1,37 @@
 import 'package:bloc/bloc.dart';
-import 'package:domain/errors/failures.dart';
 import 'package:domain/features/photos/entities/photo.dart';
-import 'package:domain/features/photos/repositories/photos_repository.dart';
 import 'package:domain/features/photos/usecases/get_photos_usecase.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:presentation/bloc/cubit_mixin.dart';
+
+part 'feed_cubit.freezed.dart';
 
 part 'feed_state.dart';
 
 @injectable
-class FeedCubit extends Cubit<FeedState> {
-  FeedCubit(this._getPhotosUseCase) : super(LoadingFeedState());
+class FeedCubit extends Cubit<FeedState> with CubitMixin {
+  FeedCubit(this._getPhotosUseCase) : super(FeedState.loading());
 
   final GetPhotosUseCase _getPhotosUseCase;
 
-  Future<void> tryAgainFunc() {
-    emit(LoadingFeedState());
-    return _fetchPhotos(true);
+  Future<void> tryAgain() {
+    emit(FeedState.loading());
+    return loadPhotos();
   }
 
-  Future<void> refreshPhotos() => _fetchPhotos(true);
-
-  Future<void> loadPhotos() => _fetchPhotos(false);
-
-  Future<void> _fetchPhotos(bool isForceNew) async {
-    final response = await _getPhotosUseCase.getPhotos(30);
-    final result = response.fold(
-      (failure) => failure,
-      (photos) => photos,
+  Future<void> loadPhotos() async {
+    final result = await invoke(_getPhotosUseCase.getPhotos(5));
+    result.fold(
+      (failure) => emit(FeedState.error(failure.exception.toString())),
+      (photos) {
+        state.mapOrNull(
+          loading: (state) => emit(
+            photos.isEmpty ? FeedState.empty() : FeedState.data(photos),
+          ),
+          data: (state) => emit(FeedState.data(state.photos + photos)),
+        );
+      },
     );
-    if (result is List<Photo>) {
-      if (result.isEmpty) {
-        emit(EmptyFeedState());
-      } else if (state is DataFeedState && !isForceNew) {
-        var dataState = state as DataFeedState;
-        emit(DataFeedState(dataState.photos..addAll(result)));
-      } else {
-        emit(DataFeedState(result));
-      }
-    } else if (result is Failure &&
-        (result is NoInternetConnectionFailure || result is ServerFailure)) {
-      emit(ErrorFeedState(result.exception.toString()));
-    }
   }
 }

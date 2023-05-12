@@ -1,17 +1,12 @@
 part of 'feed_cubit.dart';
 
-abstract class FeedState {}
+@freezed
+class FeedState with _$FeedState {
+  const factory FeedState.empty() = _Empty;
 
-class EmptyFeedState extends FeedState {}
+  const factory FeedState.loading() = _Loading;
 
-class LoadingFeedState extends FeedState {}
+  const factory FeedState.error(String error) = _Error;
 
-class ErrorFeedState extends FeedState {
-  final String error;
-  ErrorFeedState(this.error);
-}
-
-class DataFeedState extends FeedState {
-  final List<Photo> photos;
-  DataFeedState(this.photos);
+  const factory FeedState.data(List<Photo> photos) = _Data;
 }

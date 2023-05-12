@@ -1,15 +1,15 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:core/di/locator.dart';
-import 'package:domain/features/photos/repositories/photos_repository.dart';
 import 'package:domain/features/photos/usecases/get_photos_usecase.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:presentation/features/photos/bloc/feed_view/feed_cubit.dart';
+import 'package:presentation/features/photos/widgets/photo_item.dart';
+import 'package:presentation/routing/app_router.dart';
+import 'package:presentation/widgets/app_loader.dart';
+import 'package:presentation/widgets/cubit_widget_error.dart';
 
-import '../../../routing/app_router.dart';
-import '../../../widgets/app_loader.dart';
-import '../../../widgets/cubit_widget_error.dart';
-import '../bloc/feed_view/feed_cubit.dart';
-import '../widgets/photo_item.dart';
+
 
 @RoutePage()
 class FeedPage extends StatefulWidget {
@@ -55,31 +55,29 @@ class _FeedPageState extends State<FeedPage> {
         ),
         body: BlocBuilder<FeedCubit, FeedState>(
           builder: (context, state) {
-            if (state is LoadingFeedState) {
-              return AppLoader();
-            } else if (state is DataFeedState) {
-              return RefreshIndicator(
-                onRefresh: _cubit.refreshPhotos,
+            return state.map(
+              empty: (state) => Center(
+                child: Text('Empty'),
+              ),
+              loading: (state) => AppLoader(),
+              error: (state) => CubitErrorWidget(
+                error: state.error,
+                tryAgainFunc: _cubit.tryAgain,
+              ),
+              data: (state) => RefreshIndicator(
+                onRefresh: _cubit.loadPhotos,
                 child: ListView.builder(
                   controller: _listController,
                   itemCount: state.photos.length,
                   itemBuilder: (context, index) {
-                    return PhotoItem(photo: state.photos[index]);
+                    return PhotoItem(
+                      photo: state.photos[index],
+                      onTap: () => context.router
+                          .push(DetailedRoute(photo: state.photos[index])), //TODO LATER
+                    );
                   },
                 ),
-              );
-            } else if (state is ErrorFeedState) {
-              return CubitErrorWidget(
-                error: state.error,
-                tryAgainFunc: _cubit.tryAgainFunc,
-              );
-            } else if (state is EmptyFeedState) {
-              return const Center(
-                child: Text('Empty'),
-              );
-            }
-            return Center(
-              child: Text(state.toString()),
+              ),
             );
           },
         ),

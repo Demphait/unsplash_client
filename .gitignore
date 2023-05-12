@@ -90,3 +90,7 @@ data/lib/features/photos/models/remote_models/photo_remote_model.freezed.dart
 data/lib/features/photos/models/remote_models/search_remote_model.freezed.dart
 
 data/lib/features/photos/models/remote_models/user_remote_model.freezed.dart
+
+presentation/lib/features/photos/bloc/feed_view/feed_cubit.freezed.dart
+
+presentation/lib/features/photos/bloc/search_view/search_cubit.freezed.dart

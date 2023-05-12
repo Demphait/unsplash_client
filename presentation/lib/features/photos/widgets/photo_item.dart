@@ -1,16 +1,16 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:domain/features/photos/entities/photo.dart';
 import 'package:flutter/material.dart';
+import 'package:presentation/theme/app_colors.dart';
+import 'package:presentation/theme/app_space.dart';
+import 'package:presentation/theme/text_style_extension.dart';
 
-import '../../../routing/app_router.dart';
-import '../../../theme/app_colors.dart';
-import '../../../theme/app_space.dart';
-import '../../../theme/text_style_extension.dart';
+
 
 class PhotoItem extends StatelessWidget {
   final Photo photo;
+  final VoidCallback onTap;
 
-  const PhotoItem({required this.photo, super.key});
+  const PhotoItem({required this.photo, super.key, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -49,9 +49,7 @@ class PhotoItem extends StatelessWidget {
             child: Material(
               color: AppColors.transparent,
               child: InkWell(
-                onTap: () {
-                  context.router.push(DetailedRoute(photo: photo));
-                },
+                onTap: onTap,
               ),
             ),
           ),
